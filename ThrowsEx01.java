@@ -1,50 +1,42 @@
-package exception.throws_;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+package exception.throw_;
 
 public class ThrowsEx01 {
 
 	public static void main(String[] args) {
 		
 		/*
-		 *  메서드, 생성자에서 발생되는 예외를 떠넘기는 키워드가 throws이다.
-		 *  throws 구문이붙어 있는 메서드, 생성자를 호출할 떄 예외처리를 대신 진행 해야한다.
-		 *  
-		 *  즉, 예외처리를 강요할 때 사용한다.
+		 * 예외 만들기 - throw
+		 * 메서드, 생성자에서 실행도중 throw 키워드를 만나면
+		 * 즉시 예외를 만들고, 예외 처리 구문을 찾는다.
+		 * 
+		 * 예외가 만들어지면 코드가 즉시 중단되고 가까이에 있는예외 처리구문을 이동(catch)
 		 */
 		
 		try {
-//			greeting(5);
-			calc(0);
-		} catch (Exception e) {
-			System.out.println("배열의 참조 범위를 벗어났습니다.");
+			System.out.println("결과:" + calsum(10));
+			System.out.println("결과:" + calsum(-4));
 			
-		}
-
-		// 대표적인 throws 처리된 메서드
-		try {
-			Class.forName("#$F$#");
-		} catch (ClassNotFoundException e) {
-			System.out.println("클래스를 정확히 입력하세요.");
+		} catch (Exception e) {
+//			System.out.println("반드시 양수로 전달해야 합니다.");
+//			System.out.println(e.getMessage()); // 예외 발생시 전달한 예외 메시지를 얻어오는 기능
+			e.printStackTrace(); // 예외의 발생경로를 추적하는 메시지를 출력해준다. (예외 원인을 찾을 때 매번 사용한다.)
 		}
 		
-		// 대표적인 throws가 붙어있는 생성자
-		try {
-			new FileInputStream("@F#");
-		} catch (FileNotFoundException e) {
-			System.out.println("파일 위치를 정확히 입력하세요.");
-		}
+		System.out.println("프로그램 정상 종료");
 		
 	}
-	private static String[] arr = {"hello", "안녕", "니하오", "사요나라"};
 	
-	public static void greeting(int index) throws Exception{
+	public static int calsum(int a) throws Exception {
 		
-		System.out.println(arr[index]);
-	}
-	
-	public static void calc(int num) throws ArithmeticException {
-		System.out.println(10/ num);
+		if(a < 0) {
+			throw new Exception("반드시 양수로 전달해야 합니다."); // 예외 생성
+		}
+		
+		int sum = 0;
+		
+		for(int i = 1; i <= a; i++ ) {
+			sum += i;
+		}
+		return sum;
 	}
 }
